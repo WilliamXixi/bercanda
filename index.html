@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lock Maxwin FIRSTPLAY88</title>
     <style>
-       body {
+        body {
             font-family: 'Arial', sans-serif;
             background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -24,19 +24,17 @@
             margin-bottom: 20px;
         }
 
-        /* Mengubah warna teks menjadi merah dan menambahkan bayangan teks */
         .header-info h2, .header-info h1, .header-info p {
             margin: 0;
             font-size: 18px;
-            color: #FF0000; /* Merah */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Bayangan teks untuk kontras yang lebih baik */
+            color: #FF0000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
         }
 
-        /* Mengubah warna teks h1 menjadi merah dengan bayangan yang lebih kuat */
         .header-info h1 {
             font-size: 32px;
-            color: #FF0000; /* Merah */
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); /* Bayangan teks lebih kuat */
+            color: #FF0000;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
         }
 
         .container {
@@ -46,12 +44,14 @@
             text-align: center;
             width: 400px;
         }
+
         h1 {
             font-size: 24px;
             margin-bottom: 20px;
             color: #8E44AD;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
         }
+
         p {
             font-size: 16px;
             color: #8E44AD;
@@ -81,6 +81,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
+
         button:hover {
             background-color: #C0392B;
         }
@@ -89,6 +90,7 @@
             background-color: #00FF00;
             position: relative;
         }
+
         .lock-btn:active {
             background-color: #28B463;
         }
@@ -112,23 +114,32 @@
                 transform: scale(1);
             }
         }
+
         .locking {
             animation: lockAnimation 1s ease-in-out;
         }
 
-        /* Gaya untuk gambar gembok */
         .lock-icon {
             width: 50px;
             height: 50px;
             margin-bottom: 10px;
         }
+
+        .inactive {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .active {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Header Information -->
     <div class="header-info">
-        <!-- Gambar Gembok -->
         <img src="https://i.ibb.co/jfQgr7f/gembok.png" alt="Lock Icon" class="lock-icon">
         <h2>ID LOCK</h2>
         <h1>LOCK MAXWIN</h1>
@@ -137,7 +148,6 @@
         <p id="datetime"></p>
     </div>
 
-    <!-- Form Container -->
     <div class="container">
         <h1>LOCK MAXWIN FIRSTPLAY88</h1>
         <p>Kunci Akun & Naikan Winrate Maxwin</p>
@@ -159,14 +169,19 @@
         </form>
 
         <div class="status" id="status-message">
-            <p>Akun Anda berhasil di lock. Diharapkan untuk deposit dalam waktu 30 menit.</p>
+            <p>Akun Anda berhasil di list Tapi belum dilock. Diharapkan untuk deposit dalam waktu 30 menit,kirim bukti deposit dan klik tombol dibawah ini .</p>
         </div>
 
         <div class="countdown" id="countdown-timer">
             <p>Waktu tersisa: <span id="time-left">30:00</span></p>
         </div>
 
-        <!-- Tombol WhatsApp -->
+        <!-- Tombol WhatsApp untuk kirim bukti deposit -->
+        <div id="whatsapp-btn-container">
+            <button type="button" style="background-color: #25D366; width: 80%;" onclick="sendProof()">Kirim Bukti Deposit</button>
+        </div>
+
+        <!-- Tombol Hubungi via WhatsApp -->
         <a href="https://wa.me/639101709982" target="_blank">
             <button type="button" style="width: 80%; padding: 12px; margin-top: 20px; background-color: #25D366; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
                 Hubungi via WhatsApp
@@ -175,7 +190,6 @@
     </div>
 
     <script>
-        // Menampilkan tanggal dan waktu saat ini
         const datetimeElement = document.getElementById('datetime');
         const currentDate = new Date();
         const formattedDate = currentDate.toLocaleString('id-ID', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -186,12 +200,14 @@
             const statusMessage = document.getElementById('status-message');
             const countdownTimer = document.getElementById('countdown-timer');
             const timeLeftSpan = document.getElementById('time-left');
+            const whatsappBtnContainer = document.getElementById('whatsapp-btn-container');
 
             lockButton.classList.add('locking');
             setTimeout(() => {
                 lockButton.classList.remove('locking');
                 statusMessage.style.display = 'block';
                 countdownTimer.style.display = 'block';
+                whatsappBtnContainer.style.display = 'block';
 
                 let timeLeft = 30 * 60;
                 const interval = setInterval(() => {
@@ -204,9 +220,22 @@
                     if (timeLeft < 0) {
                         clearInterval(interval);
                         timeLeftSpan.textContent = "Waktu Habis";
+                        // Change status to inactive if time runs out
+                        statusMessage.innerHTML = "ID tidak aktif. Harap kirim bukti deposit.";
                     }
                 }, 1000);
             }, 1000);
+        }
+
+        function sendProof() {
+            // Redirect member to WhatsApp with message pre-filled
+            const userId = document.getElementById('user-id').value;
+            if (userId) {
+                const message = `Saya ingin mengirimkan bukti deposit untuk User ID: ${userId}.`;
+                window.open(`https://wa.me/639101709982?text=${encodeURIComponent(message)}`, '_blank');
+            } else {
+                alert("Harap masukkan User ID terlebih dahulu.");
+            }
         }
     </script>
 
